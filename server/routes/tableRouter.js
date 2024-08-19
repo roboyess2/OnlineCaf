@@ -1,10 +1,9 @@
 const Router = require('express')
 const router = new Router()
-const UserController = require('../controllers/controller')
+const tableController = require('../controllers/tableController')
 
 
-router.post('/')
-router.get('/')
-router.get('/:id')
+router.post('/', tableController.bookTable)
+router.get('/', tableController.checkTable)
 
 module.exports = router;
