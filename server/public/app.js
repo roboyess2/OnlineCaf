@@ -4,7 +4,7 @@ document.getElementById('createButton').addEventListener('click', function() {
     const data = { type_name: 'New Type' };
 
     // Отправка POST-запроса с помощью fetch API
-    fetch('/api/type', {
+    fetch('/api/type/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
