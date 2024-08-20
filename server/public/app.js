@@ -1,9 +1,10 @@
 document.getElementById('createButton').addEventListener('click', function() {
+    console.log('Button clicked!'); // Эта строка должна появиться в консоли при клике
     // Данные для POST-запроса
     const data = { type_name: 'New Type' };
 
     // Отправка POST-запроса с помощью fetch API
-    fetch('/type', {
+    fetch('/api/type', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
