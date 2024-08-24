@@ -1,6 +1,8 @@
 const {Product} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const db = require('../db');
+const uuid = require('uuid')
+const path = require('path')
 
 
 class ProductController {
@@ -10,10 +12,14 @@ class ProductController {
 
     try {
         const { product_name, product_price, quantity , product_type_id } = req.body;
+        const {img} = req.files
+        let fileName = uuid.v4() + ".jpg" 
+        img.mv(path.resolve(__dirname, '..', 'static', fileName))
+
         if (!product_name) {
             return res.status(400).json({ message: 'productn is required' });
         }
-        const product = await Product.create({ product_name, product_price, quantity, product_type_id });
+        const product = await Product.create({ product_name, product_price, quantity, product_type_id , img: fileName});
         console.log('New product created:', product); // Отладочный вывод после создания записи
         return res.json(product);
     } catch (error) {
@@ -33,6 +39,15 @@ class ProductController {
     }
     
     async getAll(req,res) {
+        const {product_type_id} = req.body
+        let products
+        if (!product_type_id){
+            products = await Product.findAll()
+        }
+        else {
+
+        }
+        return res.json(products)
 
     }
     

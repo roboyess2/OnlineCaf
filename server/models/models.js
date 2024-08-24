@@ -40,7 +40,8 @@ const Product = sequelize.define('product', {
     product_name: { type: DataTypes.STRING, allowNull: false },
     product_price: { type: DataTypes.FLOAT, allowNull: false }, // Исправлен тип поля на FLOAT
     quantity: { type: DataTypes.INTEGER, allowNull: false },
-    product_type_id: { type: DataTypes.INTEGER, allowNull: false }
+    product_type_id: { type: DataTypes.INTEGER, allowNull: false },
+    img: {type: DataTypes.STRING , allowNull: false}
 });
 
 // Связи
