@@ -39,13 +39,13 @@ class ProductController {
     }
     
     async getAll(req,res) {
-        const {product_type_id} = req.body
-        let products
+        const {product_type_id} = req.query
+        let products;
         if (!product_type_id){
             products = await Product.findAll()
         }
-        else {
-
+        if (product_type_id) {
+            products = await Product.findAll({where: {product_type_id}})
         }
         return res.json(products)
 
