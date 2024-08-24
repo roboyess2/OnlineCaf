@@ -2,10 +2,10 @@ const Router = require('express')
 const router = new Router()
 const productController = require('../controllers/productController')
 
-router.post('/', productController.delete)
-router.post('/', productController.update)
-router.post('/', productController.create)
+router.post('/delete', productController.delete)
+router.post('/update', productController.update)
+router.post('/create', productController.create)
 router.get('/', productController.getAll)
-router.get('/', productController.getOne)
+router.get('/id', productController.getOne)
 
 module.exports = router;
