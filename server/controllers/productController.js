@@ -4,12 +4,23 @@ const db = require('../db');
 
 
 class ProductController {
-
     async create(req, res) {
-        const {product_name,product_price,quantity,} = req.body
-        const product = await Product.create({product_name})
-        return res.json(product)
+    console.log('POST /api/product called'); // Отладочный вывод
+    console.log('Request body:', req.body); // Вывод тела запроса
+
+    try {
+        const { product_name, product_price, quantity } = req.body;
+        if (!type_name) {
+            return res.status(400).json({ message: 'productn is required' });
+        }
+        const product = await Product.create({ product_name, product_price, quantity });
+        console.log('New product created:', product); // Отладочный вывод после создания записи
+        return res.json(product);
+    } catch (error) {
+        console.error('Error during type creation:', error); // Вывод ошибок
+        return res.status(500).json({ message: 'Server error' });
     }
+}
 
    
 
@@ -29,5 +40,6 @@ class ProductController {
 
     }
 }
+
 
 module.exports = new ProductController()
