@@ -3,7 +3,7 @@ const router = new Router()
 const tableController = require('../controllers/tableController')
 
 
-router.post('/', tableController.bookTable)
-router.get('/', tableController.checkTable)
+router.post('/book', tableController.bookTable)
+router.get('/check', tableController.checkTable)
 
 module.exports = router;

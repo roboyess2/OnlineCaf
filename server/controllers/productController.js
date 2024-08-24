@@ -9,15 +9,15 @@ class ProductController {
     console.log('Request body:', req.body); // Вывод тела запроса
 
     try {
-        const { product_name, product_price, quantity } = req.body;
-        if (!type_name) {
+        const { product_name, product_price, quantity , product_type_id } = req.body;
+        if (!product_name) {
             return res.status(400).json({ message: 'productn is required' });
         }
-        const product = await Product.create({ product_name, product_price, quantity });
+        const product = await Product.create({ product_name, product_price, quantity, product_type_id });
         console.log('New product created:', product); // Отладочный вывод после создания записи
         return res.json(product);
     } catch (error) {
-        console.error('Error during type creation:', error); // Вывод ошибок
+        console.error('Error during product creation:', error); // Вывод ошибок
         return res.status(500).json({ message: 'Server error' });
     }
 }

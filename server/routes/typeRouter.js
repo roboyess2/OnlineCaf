@@ -5,12 +5,8 @@ const typeController = require('../controllers/typeController');
 router.post('/delete', typeController.delete); 
 router.post('/update', typeController.update); 
 router.post('/create', typeController.create); 
-router.get('/', typeController.getAll); 
+router.get('/getall', typeController.getAll); 
 router.get('/:id', typeController.getOne); 
-router.post('/', typeController.delete)
-router.post('/', typeController.update)
-router.post('/create', typeController.create)
-router.get('/', typeController.getAll)
-router.get('/', typeController.getOne)
+
 
 module.exports = router;
