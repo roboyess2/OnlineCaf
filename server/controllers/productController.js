@@ -11,7 +11,7 @@ class ProductController {
     console.log('Request body:', req.body); // Вывод тела запроса
 
     try {
-        const { product_name, product_price, quantity , product_type_id } = req.body;
+        const { product_name, product_price, quantity , product_type_id , product_info} = req.body;
         const {img} = req.files
         let fileName = uuid.v4() + ".jpg" 
         img.mv(path.resolve(__dirname, '..', 'static', fileName))
@@ -19,7 +19,7 @@ class ProductController {
         if (!product_name) {
             return res.status(400).json({ message: 'productn is required' });
         }
-        const product = await Product.create({ product_name, product_price, quantity, product_type_id , img: fileName});
+        const product = await Product.create({ product_name, product_price, quantity, product_type_id , img: fileName , product_info});
         console.log('New product created:', product); // Отладочный вывод после создания записи
         return res.json(product);
     } catch (error) {

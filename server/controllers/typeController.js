@@ -2,6 +2,8 @@ const {ProductType} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const db = require('../db');
 const { types } = require('pg');
+const uuid = require('uuid')
+const path = require('path')
 
 
 class TypeController {
@@ -12,10 +14,13 @@ class TypeController {
 
         try {
             const { type_name } = req.body;
+            const {img} = req.files
+            let fileName = uuid.v4() + ".jpg" 
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
             if (!type_name) {
                 return res.status(400).json({ message: 'Type name is required' });
             }
-            const type = await ProductType.create({ type_name });
+            const type = await ProductType.create({ type_name , img: fileName});
             console.log('New type created:', type); // Отладочный вывод после создания записи
             return res.json(type);
         } catch (error) {

@@ -25,7 +25,7 @@ app.use(errorHandler)
 const start = async () => {
     try {
         await sequelize.authenticate();  // Аутентификация с базой данных
-        await sequelize.sync();  // Синхронизация моделей с базой данных
+        await sequelize.sync({ alter: true });  // Синхронизация моделей с базой данных
         app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
     } catch (error) {
         console.error('Unable to connect to the database:', error);

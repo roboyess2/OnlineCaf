@@ -27,12 +27,14 @@ const Table = sequelize.define('table', {
 const Order = sequelize.define('order', {
     order_id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     order_number: { type: DataTypes.INTEGER, allowNull: false },
-    table_id: { type: DataTypes.INTEGER, allowNull: false } 
+    table_id: { type: DataTypes.INTEGER, allowNull: false } ,
+    order_info: { type: DataTypes.STRING, allowNull: false }
 });
 
 const ProductType = sequelize.define('product_type', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    type_name: { type: DataTypes.STRING, allowNull: false, unique: true }
+    type_name: { type: DataTypes.STRING, allowNull: false, unique: true },
+    img: {type: DataTypes.STRING , allowNull: false},
 });
 
 const Product = sequelize.define('product', {
@@ -41,7 +43,15 @@ const Product = sequelize.define('product', {
     product_price: { type: DataTypes.FLOAT, allowNull: false }, // Исправлен тип поля на FLOAT
     quantity: { type: DataTypes.INTEGER, allowNull: false },
     product_type_id: { type: DataTypes.INTEGER, allowNull: false },
-    img: {type: DataTypes.STRING , allowNull: false}
+    img: {type: DataTypes.STRING , allowNull: false},
+    product_info: { type: DataTypes.STRING, allowNull: false }
+});
+
+const OrderProduct = sequelize.define('OrderProduct', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    order_id: { type: DataTypes.INTEGER, allowNull: false },
+    product_id: { type: DataTypes.INTEGER, allowNull: false },
+    quantity: { type: DataTypes.INTEGER, allowNull: false } // Можно добавить количество продукта в заказе
 });
 
 // Связи
@@ -51,8 +61,8 @@ Table.belongsTo(User, { foreignKey: 'user_id' });
 Table.hasMany(Order, { foreignKey: 'table_id' });
 Order.belongsTo(Table, { foreignKey: 'table_id' });
 
-Order.hasMany(Product, { foreignKey: 'order_id' });
-Product.belongsTo(Order, { foreignKey: 'order_id' });
+Product.belongsToMany(Order, { through: OrderProduct, foreignKey: 'product_id' });
+Order.belongsToMany(Product, { through: OrderProduct, foreignKey: 'order_id' });
 
 Product.belongsTo(ProductType, { foreignKey: 'product_type_id' });
 ProductType.hasMany(Product, { foreignKey: 'product_type_id' });
